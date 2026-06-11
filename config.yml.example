@@ -1,0 +1,52 @@
+# Copy this file to your project root as config.yml
+#
+# Microservices: host-based routing activates a named context.
+#   - Default context: App/  (namespace App\)
+#   - Named context:   Microservice/{Namespace}/  (namespace Microservice\{Namespace}\)
+#
+# Verify with: forge microservice list
+# Override at runtime: \Flames\Microservice\Microservice::set('Painel');
+
+surface:
+  enabled: true
+
+polyfill:
+  functions: []
+
+microservices:
+  admin:
+    namespace: Admin
+    hosts:
+      - admin.domain.com
+      - admin.domain.local
+      - "*.admin.local"
+
+  painel:
+    namespace: Painel
+    hosts:
+      - painel.domain.com
+      - "*.painel.local"
+
+  landing:
+    namespace: Landing
+    hosts:
+      - domain.com
+      - www.domain.com
+      - domain.local
+
+schedules:
+  example-daily:
+    command: cache purge kernel
+    run:
+      every:
+        day: 1
+    timeout:
+      seconds: 300
+    overlapping: false
+
+  example-every-minute:
+    command: schedule list
+    run:
+      every:
+        minute: 1
+    overlapping: true
